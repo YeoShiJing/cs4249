@@ -21,7 +21,7 @@ var LOG_VERSION = '0.1';           // Labels every entry with version: "0.1".
 // These event types are intercepted for logging before jQuery handlers.
 var EVENT_TYPES_TO_LOG = {
   load: true,
-  mousedown: true,
+  click: true,
   keydown: true
 };
 
@@ -114,10 +114,18 @@ function getUniqueId() {
 // Log the given event.
 function logEvent(event, customName, customInfo) {
 	
-	console.log('event', event, 'customName', customName, 'customInfo', customInfo);
+	// console.log('event', event, 'customName', customName, 'customInfo', customInfo);
 	
-  var time = (new Date()).getTime();
+  // var time = (new Date).getTime();
+
   var eventName = customName || event.type;
+  
+  var time;
+  if(eventName==='click'&&customInfo){
+      time = (customInfo.info['timeEnd'] - customInfo.info['timeStart'])/1000;
+  }else{
+    time = (new Date).getTime();
+  }
   // By default, monitor some global state on every event.
   var infoObj = GLOBAL_STATE_TO_LOG();
   // And monitor a few interesting fields from the event, if present.
@@ -136,7 +144,7 @@ function logEvent(event, customName, customInfo) {
   var state = window.location.hash;
 
   if (ENABLE_CONSOLE_LOGGING) {
-    console.log(uid, time, eventName, target, info, state, LOG_VERSION);
+    // console.log(uid, time, eventName, target, info, state, LOG_VERSION);
   }
   if (ENABLE_NETWORK_LOGGING) {
     sendNetworkLog(uid, time, eventName, target, info, state, LOG_VERSION);
@@ -181,28 +189,32 @@ return {
 /////////////////////////////////////////////////////////////////////////////
 
 function sendNetworkLog(
-    uid,
-    time,
-    eventName,
-    target,
-    info,
-    state,
-    log_version) {
-    var formid = "e/1FAIpQLScjVPPPKnGZOGjS5xFCkr_TbrxGhE1NxKihNi38s0DMlX7Spg";
-    var data = {
-      "entry.1398055690": uid,
-      "entry.1130382541": time,
-      "entry.1299238482": eventName,
-      "entry.1264314525": target,
-      "entry.1325104914": info,
-      "entry.1083283620": state,
-      "entry.629993136": log_version
-    };
-  var params = [];
-  for (var key in data) {
-    params.push(key + "=" + encodeURIComponent(data[key]));
-  }
-  // Submit the form using an image to avoid CORS warnings; warning may still happen, but log will be sent. Go check result in Google Form
-  (new Image()).src = "https://docs.google.com/forms/d/" + formid +
-     "/formResponse?" + params.join("&");
+  uid,
+  time,
+  eventname,
+  target,
+  info,
+  state,
+  log_version) {
+var formid = "e/1FAIpQLScjVPPPKnGZOGjS5xFCkr_TbrxGhE1NxKihNi38s0DMlX7Spg";
+var data = {
+  "entry.1398055690": uid,
+  "entry.1130382541": time,
+  "entry.1299238482": eventname,
+  "entry.1264314525": target,
+  "entry.1325104914": info,
+  "entry.1083283620": state,
+  "entry.629993136": log_version,
+};
+var params = [];
+for (var key in data) {
+  params.push(key + "=" + encodeURIComponent(data[key]));
+}
+// Submit the form using an image to avoid CORS warnings; warning may still happen, but log will be sent. Go check result in Google Form
+(new Image).src = "https://docs.google.com/forms/d/" + formid +
+   "/formResponse?" + params.join("&");
+}
+
+export {
+  loggingjs
 }

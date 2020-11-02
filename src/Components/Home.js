@@ -30,6 +30,9 @@ const cookies = new Cookies();
 const SELF_COLLECT_OPTION = "selfcollect";
 const HOME_DELIVERY_OPTION = "delivery";
 
+var timeStart = (new Date()).getTime();
+sessionStorage.setItem("timeStart", timeStart);
+
 function getMobileOperatingSystem() {
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
