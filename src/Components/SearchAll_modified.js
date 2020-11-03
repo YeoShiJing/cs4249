@@ -531,7 +531,7 @@ export class SearchAll extends React.Component {
 						src={gradient}
 						alt=""
 						style={{
-						  width: "130%",
+						  width: "100%",
 						  height: "150px",
 						  borderRadius: "5px",
 						  position: "relative",
