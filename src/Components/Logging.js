@@ -58,7 +58,7 @@ export function taskToString(taskID)
 		name= "The Rice Table";
 		break;
 	  case 5:
-		name= "Fun Toast";
+		name= "ButterNut";
 		break;
 	  case 6:
 		name= "Hup Seng Hokkien Mee";
