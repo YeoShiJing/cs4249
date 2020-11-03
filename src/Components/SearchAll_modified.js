@@ -30,13 +30,13 @@ import Skeleton from "@material-ui/lab/Skeleton";
 //IV3
 import gradient from "../assets/gradient.png";
 var distSplit=2;
-const itemPerLine=Math.max(
+const itemPerLine=Math.min(Math.max(
     document.body.scrollWidth,
     document.documentElement.scrollWidth,
     document.body.offsetWidth,
     document.documentElement.offsetWidth,
     document.documentElement.clientWidth
-  )/250;
+  )/250,5);
 const numOfGroups=20;
 //IV3 End
 

@@ -30,13 +30,13 @@ import Skeleton from "@material-ui/lab/Skeleton";
 //IV3
 import gradient from "../assets/gradient.png";
 var distSplit=2;
-const itemPerLine=Math.max(
+const itemPerLine=Math.min(Math.max(
     document.body.scrollWidth,
     document.documentElement.scrollWidth,
     document.body.offsetWidth,
     document.documentElement.offsetWidth,
     document.documentElement.clientWidth
-  )/250;
+  )/250,5);
 const numOfGroups=20;
 //IV3 End
 
@@ -92,6 +92,7 @@ function ScrollTop(props) {
   return (
     <Zoom in={trigger}>
       <div
+		id="btn_search_scrollToTop"
         onClick={handleClick}
         role="presentation"
         style={{ position: "fixed", bottom: "50px", right: "30px" }}
@@ -169,9 +170,9 @@ export class SearchAll extends React.Component {
     }
 	
 	if (queryParams.get("iv3") === "short") {
-        distSplit = 2;
-    } else if (queryParams.get("iv3") === "long") {
         distSplit = 3;
+    } else if (queryParams.get("iv3") === "long") {
+        distSplit = 6;
     }  
 	
 	state.showList=new Array(numOfGroups).fill(false);
@@ -700,6 +701,8 @@ export class SearchAll extends React.Component {
       }
     }
 	
+	//IV2: Type of search pane
+
     return (
       <div class="container" style={{ paddingTop: "56px", width: "100%" }}>
         <div class="container" style={{ paddingTop: "27px" }}>
@@ -720,6 +723,7 @@ export class SearchAll extends React.Component {
                 {(context) => (
                   <div class="col-12 col-sm-6 col-md-6">
                     <input
+					  id="input_search"
                       disabled={!this.state.retrieved}
                       class="form-control"
                       type="text"
@@ -745,6 +749,7 @@ export class SearchAll extends React.Component {
               {(context) => (
                 <div class="col-6 col-sm-6 col-md-6">
                   <input
+					id="input_postal"
                     onChange={this.handleChange}
                     value={this.state.postal}
                     type="text"
@@ -772,6 +777,7 @@ export class SearchAll extends React.Component {
                 <LanguageContext.Consumer>
                   {(context) => (
                     <Button
+					  id="btn_search_pickup"
                       variant={"contained"}
                       // variant="outline-secondary"
                       onClick={this.handleToggle}
@@ -823,6 +829,7 @@ export class SearchAll extends React.Component {
                 <LanguageContext.Consumer>
                   {(context) => (
                     <Button
+					  id="btn_search_delivery"
                       type="submit"
                       variant={"contained"}
                       disabled={!this.state.retrieved}
