@@ -10,6 +10,7 @@ import "../App.css";
 import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import Cookies from "universal-cookie";
+import {taskToString,sendEvent} from "./Logging";
 
 const cookies = new Cookies();
 
@@ -24,12 +25,13 @@ export class Search extends React.Component {
         super(props);
         
         const queryParams = new URLSearchParams(props.location.search);
-
+		console.log("search.js loaded");
         this.state = {
             postal: cookies.get("postal_search"),
             loading: false,
             iv2: queryParams.get("iv2"),
             iv3: queryParams.get("iv3"),
+			task: queryParams.get("task"),
         };
     }
 
@@ -39,6 +41,7 @@ export class Search extends React.Component {
     const name = target.name;
     this.setState({ [name]: value });
   };
+	
 
   async getPostal() {
     this.setState({ loading: true });
@@ -85,7 +88,8 @@ export class Search extends React.Component {
     search.append("street", postal.ADDRESS);
     search.append("lng", postal.LONGITUDE);
     search.append("lat", postal.LATITUDE);
-    search.append("option", this.props.option); 
+    search.append("option", this.props.option);
+	search.append("task",this.state.task);
 
 /*
     this.props.history.push({
@@ -146,6 +150,7 @@ export class Search extends React.Component {
         <div class="row mt-4">
           <div class="col">
             <Button
+              id="btn_search"
               type="submit"
               variant={"contained"}
               // variant="outline-secondary"

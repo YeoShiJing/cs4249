@@ -84,7 +84,7 @@ export class Menu extends React.Component {
               href="#"
               as={Link}
               to="/"
-              id="menu-link"
+              id="menu-link-main"
               style={{ color: "grey" }}
               onClick={onClick("home")}
             >
@@ -101,7 +101,7 @@ export class Menu extends React.Component {
             href="#searchall"
             as={Link}
             to="/searchall"
-            id="menu-link"
+            id="menu-link-search"
             style={{ color: "grey" }}
             onClick={onClick("search")}
           >
@@ -113,7 +113,7 @@ export class Menu extends React.Component {
             href="#create"
             as={Link}
             to="/create"
-            id="menu-link"
+            id="menu-link-create"
             style={{ color: "grey" }}
             onClick={onClick("create")}
           >
@@ -126,7 +126,7 @@ export class Menu extends React.Component {
             href="#about"
             as={Link}
             to="/about"
-            id="menu-link"
+            id="menu-link-about"
             style={{ color: "grey" }}
             onClick={onClick("about")}
           >

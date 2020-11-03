@@ -21,6 +21,7 @@ import { TelegramIcon } from "react-share";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import {taskToString,sendEvent} from "./Logging";
 
 import "./Home.css";
 import { Line } from "rc-progress";
@@ -50,6 +51,9 @@ function getMobileOperatingSystem() {
 }
 
 export class Home extends React.PureComponent {
+
+  
+  
   state = {
     data: [],
     option: "",
@@ -61,6 +65,29 @@ export class Home extends React.PureComponent {
   componentWillMount() {
     this.retrieveData();
   }
+ 
+ 
+  //handle onPageLoad
+  componentDidMount() {
+    window.addEventListener('load', this.handleLoad);
+ }
+
+ handleLoad() {
+	const queryParams = new URLSearchParams(window.location.search);
+	console.log("loaded");
+	
+	
+	//reset each time homepage is loaded
+	sessionStorage["timeStart"] =new Date().getTime();
+	sessionStorage["clickCount"]=0;
+	sessionStorage["errorCount"]=0;
+	sessionStorage["task"]=queryParams.get("task");
+	sessionStorage["iv1"]=queryParams.get("iv1");
+	sessionStorage["iv2"]=queryParams.get("iv2");
+	sessionStorage["iv3"]=queryParams.get("iv3");
+	sendEvent("HomePageLoad");
+ }
+ //end handle onPageLoad
 
   getData(val) {
     this.setState({ data: val });
@@ -150,7 +177,7 @@ export class Home extends React.PureComponent {
                 <div class="d-none d-md-inline-block">
                   <span style={{ fontSize: "10px" }}>Connect with us:</span>
                   <br />
-                  <a href="https://www.facebook.com/foodlehsg/" target="blank">
+                  <a href="https://www.facebook.com/foodlehsg/" target="blank" id="link_facebook">
                     <img
                       class="img-fluid"
                       style={{ width: "30px", margin: "10px" }}
@@ -158,7 +185,7 @@ export class Home extends React.PureComponent {
                       src={fb}
                     />
                   </a>
-                  <a href="https://instagram.com/foodleh.sg" target="blank">
+                  <a href="https://instagram.com/foodleh.sg" target="blank" id="link_instagram">
                     <img
                       class="img-fluid"
                       style={{ width: "30px", margin: "10px" }}
@@ -166,7 +193,7 @@ export class Home extends React.PureComponent {
                       src={insta}
                     />
                   </a>
-                  <a href="mailto:foodleh@outlook.com" target="blank">
+                  <a href="mailto:foodleh@outlook.com" target="blank" id="link_outlook">
                     <img
                       class="img-fluid"
                       style={{ width: "30px", margin: "10px" }}
@@ -174,7 +201,7 @@ export class Home extends React.PureComponent {
                       src={email}
                     />
                   </a>
-                  <a href="https://t.me/foodleh" target="blank">
+                  <a href="https://t.me/foodleh" target="blank" id="link_telegram">
                     <TelegramIcon
                       size={32}
                       round={true}
@@ -203,6 +230,7 @@ export class Home extends React.PureComponent {
                 <span class="row d-none d-md-inline-block">
                   <span class="col">
                     <img
+                      id = "btn_home_pickup1"
                       onClick={this.handleCollect}
                       alt=""
                       class={selfcollect}
@@ -216,6 +244,7 @@ export class Home extends React.PureComponent {
                   </span>
                   <span class="col">
                     <img
+                      id = "btn_home_delivery1"
                       alt=""
                       onClick={this.handleDelivery}
                       class={delivery_option}
@@ -231,6 +260,7 @@ export class Home extends React.PureComponent {
                 <span class="row d-inline-block d-md-none">
                   <button style={{ backgroundColor: "white" }}>
                     <img
+                      id = "btn_home_pickup2"
                       alt=""
                       onClick={this.handleCollect}
                       class={selfcollect}
@@ -243,6 +273,7 @@ export class Home extends React.PureComponent {
                   </button>
                   <button style={{ backgroundColor: "white" }}>
                     <img
+                      id = "btn_home_delivery2"
                       alt=""
                       onClick={this.handleDelivery}
                       class={delivery_option}
@@ -277,7 +308,7 @@ export class Home extends React.PureComponent {
                             {context.data.home.listings}
                             <br />
                             {context.data.home.goto}
-                            <a href="/create">{context.data.home.createlink}</a>
+                            <a href="/create" id="link_create">{context.data.home.createlink}</a>
                             {context.data.home.nowtoadd}
                           </div>
                         )}

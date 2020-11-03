@@ -92,6 +92,7 @@ function ScrollTop(props) {
   return (
     <Zoom in={trigger}>
       <div
+		id="btn_search_scrollToTop"
         onClick={handleClick}
         role="presentation"
         style={{ position: "fixed", bottom: "50px", right: "30px" }}
@@ -169,9 +170,9 @@ export class SearchAll extends React.Component {
     }
 	
 	if (queryParams.get("iv3") === "short") {
-        distSplit = 2;
-    } else if (queryParams.get("iv3") === "long") {
         distSplit = 3;
+    } else if (queryParams.get("iv3") === "long") {
+        distSplit = 6;
     }  
 	
 	state.showList=new Array(numOfGroups).fill(false);
@@ -721,6 +722,7 @@ export class SearchAll extends React.Component {
 				{(context) => (
 				  <div class="col-12 col-sm-6 col-md-6">
 					<input
+					  id="input_search"
 					  disabled={!this.state.retrieved}
 					  class="form-control"
 					  type="text"
@@ -747,6 +749,7 @@ export class SearchAll extends React.Component {
 			  {(context) => (
 				<div class="col-6 col-sm-6 col-md-6">
 				  <input
+				    id="input_postal"
 					onChange={this.handleChange}
 					value={this.state.postal}
 					type="text"
@@ -774,6 +777,7 @@ export class SearchAll extends React.Component {
 				<LanguageContext.Consumer>
 				  {(context) => (
 					<Button
+					  id="btn_search_pickup"
 					  variant={"contained"}
 					  // variant="outline-secondary"
 					  onClick={this.handleToggle}
@@ -826,6 +830,7 @@ export class SearchAll extends React.Component {
 				<LanguageContext.Consumer>
 				  {(context) => (
 					<Button
+					  id="btn_search_delivery"
 					  type="submit"
 					  variant={"contained"}
 					  disabled={!this.state.retrieved}

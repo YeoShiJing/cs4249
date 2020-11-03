@@ -11,16 +11,30 @@ import { LanguageContext } from "./themeContext";
 
 import "../App.css";
 import placeholder from "../placeholder.png";
+import {taskToString,calErrors,sendEvent} from "./Logging";
 
 export class Item extends React.Component {
   handleClick = async (event) => {
     event.preventDefault();
     this.context.setScrollPosition(window.pageYOffset);
     if (this.props.name) {
-      this.props.history.push({
+	  var task=sessionStorage.getItem("task");
+	  var taskItemName=taskToString(task);
+	  if(taskItemName == this.props.name)
+	  {
+		  alert("task complete, please close the window and return to qualtrics");
+		  sendEvent("TaskComplete");
+	  }
+	  else
+	  {
+		  alert("Wrong restaurant selected, please try again");
+		  calErrors();
+		  sendEvent("MistakeOnPreviousClick");
+	  }
+      /*this.props.history.push({
         pathname: "/info",
         search: "?id=" + this.props.id,
-      });
+      });*/
     }
   };
 
@@ -42,6 +56,7 @@ export class Item extends React.Component {
               class="card shadow effect-bubba item-card"
               style={{ margin: "5px" }}
               onClick={this.handleClick}
+			  id={this.props.name ? "item_"+this.props.name : null}
             >
               {this.props.distance ? (
                 <div
