@@ -58,19 +58,19 @@ export function taskToString(taskID)
 		name= "The Rice Table";
 		break;
 	  case 5:
-		name= "ButterNut";
+		name= "ButterNut ";
 		break;
 	  case 6:
 		name= "Hup Seng Hokkien Mee";
 		break;
 	  case 7:
-		name= "GANGNAM Story";
+		name= "GANGNAM STORY";
 		break;
 	  case 8:
 		name= "Signature Sambal";
 		break;
 	  case 9:
-		name= "WaWa Seafood";
+		name= "WaWa Seafood ";
 		break;
 	  default:
 		name= "Task Not Found";
