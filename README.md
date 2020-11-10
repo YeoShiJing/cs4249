@@ -31,7 +31,7 @@ All variations of the website can be found in foodlehURL.xlsx
 - src/Components/Home.js
   Home.js creates the home page as well as reads the resets sessionStorage variables and initialise the IVs basd on the URL(HTML GET). It also gets the current date time and saves it as the start time. An event is also sent to logging.js to indicate that this is the start of a new task attempt. 
   
-  """
+ ```
   //handle onPageLoad
   componentDidMount() {
     window.addEventListener('load', this.handleLoad);
@@ -53,7 +53,7 @@ All variations of the website can be found in foodlehURL.xlsx
 	sendEvent("HomePageLoad");
  }
  //end handle onPageLoad
-  """
+  ```
   
 - src/Components/Search.js
 	Search.js disaplays and manages the search button shown on the home page. When the search button is clicked the user is redirected to SearchAll,SearchAll_iv2,SearchAll_iv3 or SearchAll_modified based on the iv2,iv3. iv3 details will still be added into the URL when redirecting to control the grouping(basket) size; 3 or 6 km.
